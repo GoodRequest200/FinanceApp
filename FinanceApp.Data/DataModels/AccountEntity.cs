@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FinanceApp.Data.DataModels;
@@ -7,6 +8,7 @@ namespace FinanceApp.Data.DataModels;
 [Table("accounts")]
 public partial class AccountEntity
 {
+    [Key]
     public int AccountId { get; set; }
 
     public int UserId { get; set; }

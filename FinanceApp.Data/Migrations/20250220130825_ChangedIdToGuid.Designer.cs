@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinanceApp.Data.Migrations
 {
     [DbContext(typeof(FinanceAppDbContext))]
-    [Migration("20250208110654_hype08.02")]
-    partial class hype0802
+    [Migration("20250220130825_ChangedIdToGuid")]
+    partial class ChangedIdToGuid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,12 +27,10 @@ namespace FinanceApp.Data.Migrations
 
             modelBuilder.Entity("FinanceApp.Data.DataModels.AccountEntity", b =>
                 {
-                    b.Property<int>("AccountId")
+                    b.Property<Guid>("AccountId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("account_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AccountId"));
 
                     b.Property<decimal>("Balance")
                         .ValueGeneratedOnAdd()
@@ -48,8 +46,8 @@ namespace FinanceApp.Data.Migrations
                         .HasColumnName("currency_type")
                         .HasDefaultValueSql("'рубли'::character varying");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
                         .HasColumnName("user_id");
 
                     b.HasKey("AccountId")
@@ -62,19 +60,17 @@ namespace FinanceApp.Data.Migrations
 
             modelBuilder.Entity("FinanceApp.Data.DataModels.TransferEntity", b =>
                 {
-                    b.Property<int>("TransferId")
+                    b.Property<Guid>("TransferId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("transfer_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TransferId"));
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uuid")
                         .HasColumnName("account_id");
 
-                    b.Property<int>("AppointmentAccountId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("AppointmentAccountId")
+                        .HasColumnType("uuid")
                         .HasColumnName("appointment_account_id");
 
                     b.Property<string>("CurrencyType")
@@ -103,12 +99,10 @@ namespace FinanceApp.Data.Migrations
 
             modelBuilder.Entity("FinanceApp.Data.DataModels.UserEntity", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("user_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
                     b.Property<int>("AccountCount")
                         .ValueGeneratedOnAdd()

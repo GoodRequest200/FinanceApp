@@ -4,10 +4,10 @@ namespace FinanceApp.Core.Abstractions
 {
     public interface IUsersRepository
     {
-        Task<int> Create(User user);
-        Task<int> Delete(int id);
+        Task<int> CreateAsync(User user);
+        Task<int> DeleteAsync(int id);
         Task<List<User>> GetAllAsync();
         Task<User> GetByIdAsync(int id);
-        Task<int> Update(int id, string firstName, string lastName, string email, string password, int accountCount, string? middleName);
+        Task<int> UpdateAsync(int id, string firstName, string lastName, /*string email,*/ string password, int accountCount, string? middleName);
     }
 }

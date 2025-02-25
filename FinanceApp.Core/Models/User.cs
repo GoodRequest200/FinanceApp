@@ -4,7 +4,9 @@ namespace FinanceApp.Core.Models
 {
     public class User
     {
-        const int MAX_ACCOUNT_COUNT = 5;
+        private const int MAX_SYMBOLS = 255;
+
+        private const int MAX_ACCOUNT_COUNT = 5;
 
         //Просто конструктор с большим количеством переменных
         private User(int id
@@ -55,6 +57,13 @@ namespace FinanceApp.Core.Models
                 || string.IsNullOrEmpty(email)
                 || string.IsNullOrEmpty(password))
                 error = "Одно из обязательных полей не указано";
+
+            //if (firstName.Length > MAX_SYMBOLS
+            //    || lastName.Length > MAX_SYMBOLS
+            //    || middleName.Length > MAX_SYMBOLS
+            //    || email.Length > MAX_SYMBOLS
+            //    || password.Length > MAX_SYMBOLS)
+            //    error = "Превышено количество символов в одной из строк";
 
             if (accountCount > MAX_ACCOUNT_COUNT || accountCount < 0)
                 error = "Недопустимое количество лицевых счетов";

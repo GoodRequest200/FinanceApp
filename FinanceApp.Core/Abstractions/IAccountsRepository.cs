@@ -9,10 +9,10 @@ namespace FinanceApp.Core.Abstractions
 {
     public interface IAccountsRepository
     {
-        Task<int> Create(Account Account);
-        Task<int> Delete(int id);
+        Task<int> CreateAsync(Account Account, int userId);
+        Task<int> DeleteAsync(int id);
         Task<List<Account>> GetAllAsync();
         Task<Account> GetByIdAsync(int id);
-        Task<int> Update(int id, decimal balance, string currencyType = "рубли");
+        Task<int> UpdateAsync(int id, decimal balance, string currencyType = "рубли");
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FinanceApp.Core.Abstractions;
 using FinanceApp.Core.Models;
 using FinanceApp.Data.DataContext;
+using FinanceApp.Data.DataModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceApp.Data.Repositories
@@ -9,8 +10,7 @@ namespace FinanceApp.Data.Repositories
     {
         private readonly FinanceAppDbContext _context;
 
-        public AccountsRepository(FinanceAppDbContext context)
-            => _context = context;
+        public AccountsRepository(FinanceAppDbContext context) => _context = context;
 
         public async Task<List<Account>> GetAllAsync()
         {
@@ -42,19 +42,45 @@ namespace FinanceApp.Data.Repositories
             return account;
         }
 
-        public Task<int> Create(Account Account)
+        public async Task<int> CreateAsync(Account Account, int userId)
         {
-            throw new NotImplementedException();
+            var userEntity = await _context.Users.FindAsync(userId) ?? throw new Exception($"Пользователь с id {userId} не найден");
+
+            var accountEntity = new AccountEntity
+            {
+                AccountId = Account.Id,
+                Balance = Account.Balance,
+                CurrencyType = Account.CurrencyType,
+                UserId = userEntity.UserId,
+                User = userEntity
+            };
+                
+            await _context.AddAsync(accountEntity);
+            await _context.SaveChangesAsync();
+
+            return Account.Id;
         }
 
-        public Task<int> Update(int id, decimal balance, string currencyType = "рубли")
+        public async Task<int> UpdateAsync(int id, decimal balance, string currencyType)
         {
-            throw new NotImplementedException();
+            await _context.Accounts
+                .Where(a => a.AccountId == id)
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(a => a.AccountId, id)
+                    .SetProperty(a => a.Balance, balance)
+                    .SetProperty(a => a.CurrencyType, currencyType)
+                );
+
+            return id;
         }
 
-        public Task<int> Delete(int id)
+        public async Task<int> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _context.Accounts
+                .Where(a => a.AccountId == id)
+                .ExecuteDeleteAsync();
+
+            return id;
         }
     }
 }

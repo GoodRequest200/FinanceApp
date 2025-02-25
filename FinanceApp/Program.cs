@@ -2,6 +2,7 @@ using FinanceApp.Core.Abstractions;
 using FinanceApp.Data.DataContext;
 using FinanceApp.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using FinanceApp.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<ITransfersRepository, TransfersRepository>();
+
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IAccountsService, AccountsService>();
 
 builder.Services.AddDbContext<FinanceAppDbContext>(
         options =>

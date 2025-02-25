@@ -11,10 +11,7 @@ namespace FinanceApp.Data.Repositories
     {
         private readonly FinanceAppDbContext _context;
 
-        public UsersRepository(FinanceAppDbContext context)
-        {
-            _context = context;
-        }
+        public UsersRepository(FinanceAppDbContext context) => _context = context;
 
         public async Task<List<User>> GetAllAsync()
         {
@@ -54,7 +51,7 @@ namespace FinanceApp.Data.Repositories
             return user;
         }
 
-        public async Task<int> Create(User user)
+        public async Task<int> CreateAsync(User user)
         {
             var userEntity = new UserEntity
             {
@@ -73,10 +70,10 @@ namespace FinanceApp.Data.Repositories
             return userEntity.UserId;
         }
 
-        public async Task<int> Update(int id
+        public async Task<int> UpdateAsync(int id
             , string firstName
             , string lastName
-            , string email
+            //, string email
             , string password
             , int accountCount
             , string? middleName)
@@ -86,7 +83,7 @@ namespace FinanceApp.Data.Repositories
                 .ExecuteUpdateAsync(s => s
                     .SetProperty(u => u.UserId, id)
                     .SetProperty(u => u.LastName, lastName)
-                    .SetProperty(u => u.Email, email)
+                    //.SetProperty(u => u.Email, email)
                     .SetProperty(u => u.Password, password)
                     .SetProperty(u => u.AccountCount, accountCount)
                     .SetProperty(u => u.MiddleName, middleName)
@@ -95,7 +92,7 @@ namespace FinanceApp.Data.Repositories
             return id;
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<int> DeleteAsync(int id)
         {
             await _context.Users
                 .Where(u => u.UserId == id)

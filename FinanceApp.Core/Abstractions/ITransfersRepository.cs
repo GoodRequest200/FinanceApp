@@ -9,8 +9,8 @@ namespace FinanceApp.Core.Abstractions
 {
     public interface ITransfersRepository
     {
-        Task<int> Create(Transfer Transfer);
-        Task<int> Delete(int id);
+        Task<int> CreateAsync(Transfer Transfer, int accountId, int appointmentAccountId);
+        Task<int> DeleteAsync(int id);
         Task<List<Transfer>> GetAllAsync();
         Task<Transfer> GetByIdAsync(int id);
     }

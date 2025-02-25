@@ -2,15 +2,15 @@
 {
     public class Transfer
     {
-        public Transfer(int id, decimal transferSum, string currencyType, DateTime transferDate = new())
+        public Transfer(int id, decimal transferSum, DateTime transferDate, string currencyType)
         {
-            TransferId = id;
+            Id = id;
             TransferSum = transferSum;
             CurrencyType = currencyType;
             TransferDate = transferDate;
         }
 
-        public int TransferId { get; }
+        public int Id { get; }
 
         public string CurrencyType { get; } = null!;
 
@@ -20,7 +20,7 @@
 
         //Метод по созданию экземпляра класса с использованием ранее объявленного конструктора
         public static (Transfer Transfer, string Error) Create
-            (int id, decimal transferSum, string currencyType = "рубли")
+            (int id, decimal transferSum, DateTime transferDate, string currencyType = "рубли")
         {
             var error = string.Empty;
 
@@ -33,7 +33,7 @@
                 error = "Некорректный тип валюты(поддерживаются 'рубли' и 'у.е.')";
             }
 
-            var transfer = new Transfer(id, transferSum, currencyType);
+            var transfer = new Transfer(id, transferSum, transferDate, currencyType);
 
             return (transfer, error);
         }

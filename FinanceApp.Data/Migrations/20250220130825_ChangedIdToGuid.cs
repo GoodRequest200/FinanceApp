@@ -1,13 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace FinanceApp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class hype0802 : Migration
+    public partial class ChangedIdToGuid : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,8 +15,7 @@ namespace FinanceApp.Data.Migrations
                 name: "users",
                 columns: table => new
                 {
-                    user_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     first_name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     last_name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     middle_name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
@@ -34,9 +32,8 @@ namespace FinanceApp.Data.Migrations
                 name: "accounts",
                 columns: table => new
                 {
-                    account_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    account_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     currency_type = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValueSql: "'рубли'::character varying"),
                     balance = table.Column<decimal>(type: "money", nullable: false, defaultValueSql: "0.00")
                 },
@@ -55,10 +52,9 @@ namespace FinanceApp.Data.Migrations
                 name: "transfers",
                 columns: table => new
                 {
-                    transfer_id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    account_id = table.Column<int>(type: "integer", nullable: false),
-                    appointment_account_id = table.Column<int>(type: "integer", nullable: false),
+                    transfer_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    account_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    appointment_account_id = table.Column<Guid>(type: "uuid", nullable: false),
                     currency_type = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     transfer_date = table.Column<DateTime>(type: "timestamp(0) without time zone", nullable: false),
                     transfer_sum = table.Column<decimal>(type: "money", nullable: false)
