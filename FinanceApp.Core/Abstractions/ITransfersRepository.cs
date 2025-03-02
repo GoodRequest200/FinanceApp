@@ -13,5 +13,7 @@ namespace FinanceApp.Core.Abstractions
         Task<int> DeleteAsync(int id);
         Task<List<Transfer>> GetAllAsync();
         Task<Transfer> GetByIdAsync(int id);
+        Task<List<Transfer>> GetTransfersOfUserOwnAsync(int userId);
+        Task<List<Transfer>> GetExternalTransfersAsync(int userId);
     }
 }

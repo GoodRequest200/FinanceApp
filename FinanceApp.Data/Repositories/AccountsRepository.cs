@@ -28,6 +28,23 @@ namespace FinanceApp.Data.Repositories
             return accounts;            
         }
 
+        public async Task<List<Account>> GetUserAccountsAsync(int userId) 
+        {
+            var accountsEntitites = await _context.Accounts
+                .AsNoTracking()
+                .Where(a =>  a.UserId == userId)
+                .ToListAsync();
+
+            var accounts = accountsEntitites
+                .Select(a => Account.Create(
+                    a.AccountId,
+                    a.Balance,
+                    a.CurrencyType).Account)
+                .ToList();
+
+            return accounts;
+        }
+
         public async Task<Account> GetByIdAsync(int id)
         {
             var account = await _context.Accounts

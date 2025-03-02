@@ -43,6 +43,22 @@ namespace FinanceApp.Api.Controllers
             return Ok(responce);
         }
 
+        [HttpGet("useraccounts/{userId:int}")]
+        public async Task<ActionResult<List<AccountsResponce>>> GetUserAccounts(int userId)
+        {
+            var accounts = await _accountsService.GetUserAccountsAsync(userId);
+
+            if (accounts == null)
+            {
+                return NotFound($"Счётa с ID {userId} не найден");
+            }
+
+            var responce = accounts.Select(a
+                => new AccountsResponce(a.Id, a.CurrencyType, a.Balance));
+
+            return Ok(responce);
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> CreateAccount(int userId, [FromBody] AccountsRequest request) 
         {

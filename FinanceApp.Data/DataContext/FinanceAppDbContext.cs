@@ -37,7 +37,7 @@ public partial class FinanceAppDbContext : DbContext
             entity.Property(e => e.AccountId).HasColumnName("account_id");
             entity.Property(e => e.Balance)
                 .HasDefaultValueSql("0.00")
-                .HasColumnType("money")
+                .HasColumnType("numeric")
                 .HasColumnName("balance");
             entity.Property(e => e.CurrencyType)
                 .HasMaxLength(20)
@@ -67,10 +67,10 @@ public partial class FinanceAppDbContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("currency_type");
             entity.Property(e => e.TransferDate)
-                .HasColumnType("timestamp(0) without time zone")
+                .HasColumnType("timestamptz")
                 .HasColumnName("transfer_date");
             entity.Property(e => e.TransferSum)
-                .HasColumnType("money")
+                .HasColumnType("numeric")
                 .HasColumnName("transfer_sum");
 
             entity.HasOne(d => d.Account).WithMany(p => p.TransferAccounts)

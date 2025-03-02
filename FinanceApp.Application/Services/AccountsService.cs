@@ -15,6 +15,11 @@ namespace FinanceApp.Application.Services
            return await _accountsRepository.GetAllAsync();
         }
 
+        public async Task<List<Account>> GetUserAccountsAsync(int userId) 
+        { 
+            return await _accountsRepository.GetUserAccountsAsync(userId);
+        }
+
         public async Task<Account> GetAccountByIdAsync(int id)
         {
             return await _accountsRepository.GetByIdAsync(id);

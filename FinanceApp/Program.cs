@@ -19,6 +19,7 @@ builder.Services.AddScoped<ITransfersRepository, TransfersRepository>();
 
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IAccountsService, AccountsService>();
+builder.Services.AddScoped<ITransfersService, TransfersService>();
 
 builder.Services.AddDbContext<FinanceAppDbContext>(
         options =>

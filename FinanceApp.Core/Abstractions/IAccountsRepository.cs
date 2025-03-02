@@ -14,5 +14,6 @@ namespace FinanceApp.Core.Abstractions
         Task<List<Account>> GetAllAsync();
         Task<Account> GetByIdAsync(int id);
         Task<int> UpdateAsync(int id, decimal balance, string currencyType = "рубли");
+        Task<List<Account>> GetUserAccountsAsync(int userId);
     }
 }
